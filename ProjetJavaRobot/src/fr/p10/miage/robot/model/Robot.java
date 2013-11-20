@@ -1,33 +1,31 @@
 package fr.p10.miage.robot.model;
 
-
-
 import java.util.ArrayList;
 
 public class Robot { 
 
-	private Batterie batterie;
-	private ArrayList<Tache> listeTache=new ArrayList<>();
+	private Battery batterie;
+	private ArrayList<Task> listeTache=new ArrayList<>();
 	private int nbTacheMax;
 	private int nbTacheAccompli;
 	private int nbRechargement;
-	protected Robot(Batterie batterie, ArrayList<Tache> listeTache,
+	protected Robot(Battery batterie, ArrayList<Task> listeTache,
 			int nbTacheMax, int nbTacheAccompli, int nbRechargement) {
 		this.batterie = batterie;
 		this.nbTacheMax = nbTacheMax;
 		this.nbTacheAccompli = nbTacheAccompli;
 		this.nbRechargement = nbRechargement;
 	}
-	public Batterie getBatterie() {
+	public Battery getBatterie() {
 		return batterie;
 	}
-	public void setBatterie(Batterie batterie) {
+	public void setBatterie(Battery batterie) {
 		this.batterie = batterie;
 	}
-	public ArrayList<Tache> getListeTache() {
+	public ArrayList<Task> getListeTache() {
 		return listeTache;
 	}
-	public void setListeTache(ArrayList<Tache> listeTache) {
+	public void setListeTache(ArrayList<Task> listeTache) {
 		this.listeTache = listeTache;
 	}
 	public int getNbTacheMax() {
@@ -48,9 +46,4 @@ public class Robot {
 	public void setNbRechargement(int nbRechargement) {
 		this.nbRechargement = nbRechargement;
 	}
-	
-	
-	
-	
-	
 }

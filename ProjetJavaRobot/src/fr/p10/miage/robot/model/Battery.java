@@ -1,10 +1,10 @@
-package Modele;
+package fr.p10.miage.robot.model;
 
-public class Batterie {
+public class Battery {
 	private int nbBarre;
 	private boolean battSuffisante;
 	
-	protected Batterie(int nbBarre, boolean battSuffisante) {
+	protected Battery(int nbBarre, boolean battSuffisante) {
 		this.nbBarre = nbBarre;
 		this.battSuffisante = battSuffisante;
 	}
