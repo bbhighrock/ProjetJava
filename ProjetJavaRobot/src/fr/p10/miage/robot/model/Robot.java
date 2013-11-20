@@ -4,7 +4,7 @@ package fr.p10.miage.robot.model;
 
 import java.util.ArrayList;
 
-public class Robot { MERDE
+public class Robot { MERDEok
 
 	private Batterie batterie;
 	private ArrayList<Tache> listeTache=new ArrayList<>();
