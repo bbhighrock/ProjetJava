@@ -1,5 +1,6 @@
 package fr.p10.miage.robot.model;
 
+//Tri Selection
 public class Destroy extends Task{
 	protected void executTask( ) {
 		for( int i= 0; i <= table.length - 2; i++)
