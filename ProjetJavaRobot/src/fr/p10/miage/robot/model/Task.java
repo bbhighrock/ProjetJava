@@ -1,17 +1,17 @@
 package fr.p10.miage.robot.model;
 
-public abstract class Task implements Sort {
+public abstract class Task implements ExecutTask {
 	private int costBattery;
 	private String name;
 	private boolean isUnique;
 	
 	protected Comparable [] table;
-	protected abstract void sort();
+	protected abstract void executTask();
 
-	public void sort (Comparable [] table1){ // la méthode trier concrète
+	public void executTask (Comparable [] table1){ // la méthode trier concrète
 		if (table1.length > 0){
 			table = table1;
-			sort(); // appel de la méthode trier différée
+			executTask(); // appel de la méthode trier différée
 			table  = null;
 		}
 	}
