@@ -1,25 +1,27 @@
-package fr.p10.miage.robot.model;
+package Modele;
 
 import java.util.ArrayList;
 
-public class Robot { 
+public class Robot {
 
-	private Battery batterie;
+	private Batterie batterie;
 	private ArrayList<Task> listeTache=new ArrayList<>();
 	private int nbTacheMax;
 	private int nbTacheAccompli;
 	private int nbRechargement;
-	protected Robot(Battery batterie, ArrayList<Task> listeTache,
-			int nbTacheMax, int nbTacheAccompli, int nbRechargement) {
+	private centreRechargement cR;
+	protected Robot(Batterie batterie, ArrayList<Tache> listeTache,
+			int nbTacheMax, int nbTacheAccompli, int nbRechargement,centreRechargement cRrech) {
 		this.batterie = batterie;
 		this.nbTacheMax = nbTacheMax;
 		this.nbTacheAccompli = nbTacheAccompli;
 		this.nbRechargement = nbRechargement;
+		cR = cRech;
 	}
-	public Battery getBatterie() {
+	public Batterie getBatterie() {
 		return batterie;
 	}
-	public void setBatterie(Battery batterie) {
+	public void setBatterie(Batterie batterie) {
 		this.batterie = batterie;
 	}
 	public ArrayList<Task> getListeTache() {
@@ -46,4 +48,29 @@ public class Robot {
 	public void setNbRechargement(int nbRechargement) {
 		this.nbRechargement = nbRechargement;
 	}
+
+	public void goRechargement()
+	{
+		this.cR.rechargement();
+	}
+
+	public void run()
+	{
+		int i=0;
+		while(true)
+		{
+			if(this.batterie.isBattSuffisante())
+			{
+				this.listeTache[i].execute();
+
+			}
+			else
+			{
+				this.goRechargement();
+			}
+			i++;
+			i=i%(this.listeTache.size());
+		}
+	}
+
 }
