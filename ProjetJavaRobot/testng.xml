@@ -1,0 +1,31 @@
+<?xml version ="1.0" encoding ="UTF-8"?>
+<!DOCTYPE suite SYSTEM " http://testng.org/testng-1.0.dtd" >
+
+<suite name ="ProjetJavaRobot" verbose ="1">
+	<parameter name ="ROCK" value ="ROCK" />
+	<parameter name ="SCISSORS" value ="SCISSORS" />
+	<parameter name ="PAPER" value ="PAPER" />
+	<test name ="testWinPlay">
+		<classes>
+			<class name ="fr.p10.miage.tddpfc.test.TestRockPaperScissors">
+				<methods>
+					<include name ="testWinPlay"></include>
+					<include name ="testTiePlay"></include>
+					<include name ="testLostPlay"></include>
+				</methods>
+			</class>
+		</classes>
+	</test>	
+	
+	<test name ="testWinPlayer">
+		<classes>
+			<class name ="fr.p10.miage.tddpfc.test.TestPlayer">
+				<methods>
+					<include name ="testWinPlayer"></include>
+					<include name ="testTiePlayer"></include>
+					<include name ="testLostPlayer"></include>
+				</methods>
+			</class>
+		</classes>
+	</test>	
+</suite>
