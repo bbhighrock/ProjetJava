@@ -8,13 +8,19 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import fr.p10.miage.robot.model.Task;
+
 public class TestTasks {
   @Test
-	  private RockPaperScissors rps;
+  		private Task tache;
+  		private Comparable [] monTableau = {new Integer(5),new Integer(3),
+		  										new Integer(9),new Integer(4)};
+  		
 		
 		@BeforeClass
 		public void setUpClass(){
-			rps = new RockPaperScissors();
+			tache = new TriInsertion();
+			tache = new TriSelection();
 		}
 		
 		@AfterClass
