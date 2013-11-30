@@ -2,6 +2,14 @@ package fr.p10.miage.robot.model;
 
 //Tri Rapide (QuickSort)
 public class Dig extends Task{
+	private final static int costB = 1;
+
+	public Dig(String name, boolean isUnique,
+			Comparable[] table) {
+		super(costB, name, isUnique, table);
+		// TODO Auto-generated constructor stub
+	}
+
 	protected void executTask(int begin, int end) {
 
 		int indicePivot;

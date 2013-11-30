@@ -2,6 +2,13 @@ package fr.p10.miage.robot.model;
 
 //Tri Bulle
 public class Build extends Task{
+	private final static int costB = 2;
+	public Build(String name, boolean isUnique,
+			Comparable[] table) {
+		super(costB, name, isUnique, table);
+		// TODO Auto-generated constructor stub
+	}
+
 		protected boolean exchangeDone;
 		protected void executTask( ) {
 			exchangeDone = true;

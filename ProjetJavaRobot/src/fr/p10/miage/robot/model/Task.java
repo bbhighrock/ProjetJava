@@ -8,6 +8,16 @@ public abstract class Task implements ExecutTask {
 	protected Comparable [] table;
 	protected abstract void executTask();
 
+	
+	protected Task(int costBattery, String name, boolean isUnique,
+			Comparable[] table) {
+		super();
+		this.costBattery = costBattery;
+		this.name = name;
+		this.isUnique = isUnique;
+		this.table = table;
+	}
+	
 	public void executTask (Comparable [] table1){ // la méthode trier concrète
 		if (table1.length > 0){
 			table = table1;
@@ -15,6 +25,8 @@ public abstract class Task implements ExecutTask {
 			table  = null;
 		}
 	}
+
+	
 
 	protected final void exchange (int i, int j) {
 		Comparable temp = table[i];
@@ -28,4 +40,8 @@ public abstract class Task implements ExecutTask {
 			content = content + " " + i + " : " + table1[i] + "\n";
 		return content;
 		}
+	public int getCostBattery()
+	{
+		return costBattery;
+	}
 }

@@ -2,6 +2,14 @@ package fr.p10.miage.robot.model;
 
 //Tri par Insertion Dichotomique
 public class Repare extends Task {
+	private final static int costB = 1;
+
+	public Repare( String name, boolean isUnique,
+			Comparable[] table) {
+		super(costB, name, isUnique, table);
+		// TODO Auto-generated constructor stub
+	}
+
 	protected void executTask( ) {
 
 		for (int i=1; i < table.length;i++ ) {

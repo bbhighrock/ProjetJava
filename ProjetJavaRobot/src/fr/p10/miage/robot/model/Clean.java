@@ -2,6 +2,13 @@ package fr.p10.miage.robot.model;
 
 //Tri Insertion
 public class Clean extends Task {
+	private final static int costB = 1;
+	public Clean(String name, boolean isUnique,
+			Comparable[] table) {
+		super(costB, name, isUnique, table);
+		// TODO Auto-generated constructor stub
+	}
+
 	protected void executTask() {
 		for (int i=1; i < table.length; i++) {
 			insertElement(i);

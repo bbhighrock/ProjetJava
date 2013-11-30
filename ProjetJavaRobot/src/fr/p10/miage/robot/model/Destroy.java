@@ -2,6 +2,14 @@ package fr.p10.miage.robot.model;
 
 //Tri Selection
 public class Destroy extends Task{
+	private final static int costB = 1;
+
+	public Destroy(String name, boolean isUnique,
+			Comparable[] table) {
+		super(costB, name, isUnique, table);
+		// TODO Auto-generated constructor stub
+	}
+
 	protected void executTask( ) {
 		for( int i= 0; i <= table.length - 2; i++)
 			exchange(i, searchMin(i,table.length-1) );
@@ -18,4 +26,5 @@ public class Destroy extends Task{
 			}
 		return indice;
 	}
+
 }

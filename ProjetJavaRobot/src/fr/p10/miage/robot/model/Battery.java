@@ -3,8 +3,8 @@ package fr.p10.miage.robot.model;
 public class Battery {
 	private int nbBarre;
 	private boolean battSuffisante;
-	
-	protected Battery(int nbBarre, boolean battSuffisante) {
+
+	public Battery(int nbBarre, boolean battSuffisante) {
 		this.nbBarre = nbBarre;
 		this.battSuffisante = battSuffisante;
 	}
@@ -19,6 +19,11 @@ public class Battery {
 	}
 	public void setBattSuffisante(boolean battSuffisante) {
 		this.battSuffisante = battSuffisante;
+	}
+
+	@Override
+	public String toString() {
+		return "Battery : " + nbBarre ;
 	}
 
 
