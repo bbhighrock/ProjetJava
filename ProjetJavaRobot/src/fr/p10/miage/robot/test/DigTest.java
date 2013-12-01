@@ -2,8 +2,7 @@ package fr.p10.miage.robot.test;
 
 import static org.junit.Assert.*;
 
-
-public class CleanTest {
+public class DigTest {
 
 	@Test
 	public void test() {
@@ -16,10 +15,10 @@ public class CleanTest {
 			tableTrie[i]=i;
 
 		}
-		Clean cl = new Clean( "Clean", false, tableNonTrie);
+		Dig rep = new Dig( "Dig", false, tableNonTrie);
 
 		String trie = "",nonTrie ="";
-		cl.executTask(tableNonTrie);
+		rep.executTask(tableNonTrie);
 		for(int i=0;i<10;i++)
 		{
 			nonTrie += tableNonTrie[i];

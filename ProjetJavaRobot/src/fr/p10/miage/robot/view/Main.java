@@ -31,8 +31,6 @@ public class Main {
 
 		CentreRechargement cr = new CentreRechargement(5, 5);
 
-
-
 		ArrayList<Robot> lstR = new ArrayList<>();
 
 		Robot r1 = new Robot(1,new Battery(5, true), lTaskAll, 3, 0, 0, cr);

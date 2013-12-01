@@ -3,7 +3,7 @@ package fr.p10.miage.robot.test;
 import static org.junit.Assert.*;
 
 
-public class CleanTest {
+public class BuildTest {
 
 	@Test
 	public void test() {
@@ -16,10 +16,10 @@ public class CleanTest {
 			tableTrie[i]=i;
 
 		}
-		Clean cl = new Clean( "Clean", false, tableNonTrie);
+		Build bu = new Build( "Build", false, tableNonTrie);
 
 		String trie = "",nonTrie ="";
-		cl.executTask(tableNonTrie);
+		bu.executTask(tableNonTrie);
 		for(int i=0;i<10;i++)
 		{
 			nonTrie += tableNonTrie[i];
@@ -29,6 +29,6 @@ public class CleanTest {
 		//System.out.println(trie);
 		//System.out.println(nonTrie);
 		assertEquals(nonTrie, trie);
-	}
+		}
 
 }
