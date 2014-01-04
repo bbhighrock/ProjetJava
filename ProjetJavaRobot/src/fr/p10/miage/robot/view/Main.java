@@ -29,15 +29,17 @@ public class Main {
 		lTaskAll.add(cl);
 		lTaskAll.add(destr);
 
-		CentreRechargement cr = new CentreRechargement(5, 5);
+		CentreRechargement cr = new CentreRechargement(5, 5,3);
+
+		cr.start();
 
 		ArrayList<Robot> lstR = new ArrayList<>();
 
 		Robot r1 = new Robot(1,new Battery(5, true), lTaskAll, 3, 0, 0, cr);
-		Robot r2 = new Robot(2,new Battery(5, true), lTaskAll, 3, 0, 0, cr);
+			Robot r2 = new Robot(2,new Battery(5, true), lTaskAll, 3, 0, 0, cr);
 
 		lstR.add(r1);
-		lstR.add(r2);
+			lstR.add(r2);
 
 		//Assignation de tache spéciale
 		Repare rep = new Repare("Repare", true, table);
@@ -59,7 +61,12 @@ public class Main {
 				e.printStackTrace();
 			}
 		}	
-
+		try {
+			cr.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("--Resultat run des robots");
 
 		for(int i=0;i<lstR.size();i++)
@@ -69,6 +76,5 @@ public class Main {
 
 
 	}
-
 
 }

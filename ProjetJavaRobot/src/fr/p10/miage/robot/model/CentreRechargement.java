@@ -2,18 +2,51 @@ package fr.p10.miage.robot.model;
 
 import java.util.ArrayList;
 
+import model.Robot;
+
 public class CentreRechargement {
-	private ArrayList<Robot> fileAttente;
+	private ArrayList<Robot> fileAttente = new ArrayList<>();
 	private int max, curr;
+	private int nbrechargementAfaire;//Nbr de rechargement qui sera effectué, avant de mettre fin au programme
 
-	public CentreRechargement(int max, int curr){
-		this.max = 3;
+	public CentreRechargement(int max, int curr,int nb){
+		this.max = max;
 		this.curr = curr;
+		this.nbrechargementAfaire = nb;
+	}
+	public ArrayList<Robot> getFileAttente() {
+		return fileAttente;
+	}
+	public void setFileAttente(ArrayList<Robot> fileAttente) {
+		this.fileAttente = fileAttente;
+	}
+	public int getNbrechargementAfaire() {
+		return nbrechargementAfaire;
 	}
 
-	public synchronized void lancerRechargement(){
+	public void setNbrechargementAfaire(int nbrechargementAfaire) {
+		this.nbrechargementAfaire = nbrechargementAfaire;
+	}
+	public void run()
+	{
+		int c=0;
+		while(c<3)
+		{
+			System.out.println(c);
+			if(!(fileAttente.isEmpty()))
+			{
+
+				fileAttente.get(0).getBatterie().setNbBarre(5); 
+				fileAttente.get(0).countNbRechargement(); 
+				if(fileAttente.size()>=1)
+					this.enleverDansFileAttente();
+				
+			}
+			c++;
+		}
 
 	}
+
 
 	public void collecterInfo(){
 
@@ -24,9 +57,12 @@ public class CentreRechargement {
 	}
 
 	//Un robot est dechargé et on le met dans la file
-	public synchronized void mettreDansFileAttente(){
+	public synchronized void mettreDansFileAttente(Robot robot){
 		// TODO Auto-generated method stub
-		while(this.curr == this.max){
+		//	System.out.println("hh");
+		System.out.println(this.fileAttente.size() + " - " + max);
+
+		while(this.fileAttente.size() >= this.max){
 			try {
 				wait();
 			} catch (InterruptedException e) {
@@ -34,20 +70,22 @@ public class CentreRechargement {
 				e.printStackTrace();
 			}
 		}
+		fileAttente.add(robot);
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		curr ++;
-		notifyAll();
+
 	}
 
 	//Un robot est complétement rechargé et on libère une place dans la file
 	public synchronized void enleverDansFileAttente(){
-		while(this.curr == 0){
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+
+
+		fileAttente.remove(fileAttente.get(0));// supprime l element i+1 déplacé
 		this.curr--;
 		notifyAll();
 	}
