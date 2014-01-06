@@ -2,6 +2,10 @@ package fr.p10.miage.robot.model;
 
 import java.util.ArrayList;
 
+import fr.p10.miage.robot.model.Battery;
+import fr.p10.miage.robot.model.CentreRechargement;
+import fr.p10.miage.robot.model.Task;
+
 public class Robot implements Runnable {
 
 
@@ -12,7 +16,7 @@ public class Robot implements Runnable {
 	private int nbRechargement;
 	private CentreRechargement cR;
 	private int id;
-	private boolean EstenREchargement;
+	private boolean EstenREchargement, robotEnMarche;
 	public Robot(int i,Battery batterie, ArrayList<Task> listeTache,
 			int nbTacheMax, int nbTacheAccompli, int nbRechargement,CentreRechargement cRech) {
 		this.batterie = batterie;
@@ -23,6 +27,7 @@ public class Robot implements Runnable {
 		cR = cRech;
 		id=i;
 		EstenREchargement =false;
+		robotEnMarche = true;
 	}
 
 	public Battery getBatterie() {
@@ -57,9 +62,9 @@ public class Robot implements Runnable {
 	}
 
 	public void goRechargement()
-	{
-		cR.mettreDansFileAttente(this);
-		System.out.println("y");
+	{System.out.println("y");
+	cR.mettreDansFileAttente(this);
+	System.out.println("y");
 
 	}
 
@@ -77,27 +82,27 @@ public class Robot implements Runnable {
 			this.batterie.setNbBarre(this.batterie.getNbBarre() - costBatTask);
 			this.nbTacheAccompli++;
 
-
-			if(!this.batterie.isBattSuffisante() && cR.isCrEnMarche())
+			if(this.batterie.isBattSuffisante() && cR.isCrEnMarche())
 			{
 
 				this.goRechargement();
-								while(this.EstenREchargement)
-								{System.out.println("f");
-									try {
-										Thread.sleep(1000);
-									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-								}
+				while(this.EstenREchargement)
+				{System.out.println("f");
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
 			}
 			i++;
 			i=i%(this.listeTache.size());
-			System.out.println("hop");
+			System.out.println("hop" + this.batterie);
 			k++;
 		}
-		System.out.println(k);
+		System.out.println("fin robot " +k);
+		robotEnMarche = false;
 	}
 	public String toString()
 	{
@@ -107,5 +112,10 @@ public class Robot implements Runnable {
 
 	public void setEstenREchargement(boolean b) {
 		EstenREchargement=b;	
+	}
+
+	public boolean isMarche() {
+		// TODO Auto-generated method stub
+		return robotEnMarche;
 	}
 }

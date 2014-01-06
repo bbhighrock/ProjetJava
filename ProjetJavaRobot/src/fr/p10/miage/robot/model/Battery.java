@@ -5,14 +5,19 @@ public class Battery {
 	private boolean battSuffisante;
 
 	public Battery(int nbBarre, boolean battSuffisante) {
-		this.nbBarre = nbBarre;
+		this.setNbBarre(nbBarre);
 		this.battSuffisante = battSuffisante;
 	}
 	public int getNbBarre() {
 		return nbBarre;
 	}
 	public void setNbBarre(int nbBarre) {
-		this.nbBarre = nbBarre;
+		if(nbBarre>0){
+			this.nbBarre = nbBarre;
+		}else{
+			//execption
+			battSuffisante=false;
+		}
 	}
 	public boolean isBattSuffisante() {
 		return battSuffisante;
