@@ -9,6 +9,7 @@ import org.junit.Test;
 
 public class CentreRechargementTest {
 
+
 	@Test
 	public void test() {
 		CentreRechargement cr = new CentreRechargement(5, 5,3);

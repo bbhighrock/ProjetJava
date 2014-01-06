@@ -14,12 +14,13 @@ import model.Task;
 public class Main {
 
 	public static void main(String[] args) {
+
 		Random r = new Random();
 		int intRandom;
 		Comparable[] table = new Comparable[20];
 		for(int i=0;i<20;i++)
 		{
-			intRandom=r.nextInt();//
+			intRandom=r.nextInt();
 			table[i]=intRandom;
 		}
 		//Phase de création d'une liste de tache commune à tous les robots
@@ -36,10 +37,10 @@ public class Main {
 		ArrayList<Robot> lstR = new ArrayList<>();
 
 		Robot r1 = new Robot(1,new Battery(5, true), lTaskAll, 3, 0, 0, cr);
-			Robot r2 = new Robot(2,new Battery(5, true), lTaskAll, 3, 0, 0, cr);
+		//				Robot r2 = new Robot(2,new Battery(5, true), lTaskAll, 3, 0, 0, cr);
 
 		lstR.add(r1);
-			lstR.add(r2);
+		//				lstR.add(r2);
 
 		//Assignation de tache spéciale
 		Repare rep = new Repare("Repare", true, table);
