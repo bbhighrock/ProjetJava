@@ -2,11 +2,7 @@ package fr.p10.miage.robot.model;
 
 import java.util.ArrayList;
 
-import model.Battery;
-import model.CentreRechargement;
-import model.Task;
-
-public class Robot {
+public class Robot extends Thread {
 
 
 	private Battery batterie;

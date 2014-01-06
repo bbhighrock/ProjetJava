@@ -2,16 +2,13 @@ package fr.p10.miage.robot.model;
 
 import java.util.ArrayList;
 
-import model.Robot;
-
-public class CentreRechargement {
+public class CentreRechargement  extends Thread{
 	private ArrayList<Robot> fileAttente = new ArrayList<>();
-	private int max, curr;
+	private int max;
 	private int nbrechargementAfaire;//Nbr de rechargement qui sera effectué, avant de mettre fin au programme
 	private boolean crEnMarche;
-	public CentreRechargement(int max, int curr,int nb){
+	public CentreRechargement(int max,int nb){
 		this.max = max;
-		this.curr = curr;
 		this.nbrechargementAfaire = nb;
 		crEnMarche =true;
 	}
@@ -100,7 +97,6 @@ public class CentreRechargement {
 
 		fileAttente.get(0).setEstenREchargement(false);
 		fileAttente.remove(fileAttente.get(0));// supprime l element i+1 déplacé
-		this.curr--;
 		notifyAll();
 
 

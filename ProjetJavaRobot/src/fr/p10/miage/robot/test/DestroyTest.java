@@ -1,7 +1,10 @@
 package fr.p10.miage.robot.test;
 
 import static org.junit.Assert.*;
-import model.Destroy;
+
+import org.junit.Test;
+
+import fr.p10.miage.robot.model.*;
 
 public class DestroyTest {
 

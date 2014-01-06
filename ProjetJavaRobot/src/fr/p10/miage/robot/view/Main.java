@@ -3,13 +3,7 @@ package fr.p10.miage.robot.view;
 import java.util.ArrayList;
 import java.util.Random;
 
-import model.Battery;
-import model.CentreRechargement;
-import model.Clean;
-import model.Destroy;
-import model.Repare;
-import model.Robot;
-import model.Task;
+import fr.p10.miage.robot.model.*;
 
 public class Main {
 
@@ -30,8 +24,7 @@ public class Main {
 		lTaskAll.add(cl);
 		lTaskAll.add(destr);
 
-		CentreRechargement cr = new CentreRechargement(5, 5,3);
-
+		CentreRechargement cr = new CentreRechargement(5,3);
 		cr.start();
 
 		ArrayList<Robot> lstR = new ArrayList<>();
