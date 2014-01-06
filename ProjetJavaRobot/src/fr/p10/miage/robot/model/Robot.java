@@ -16,6 +16,7 @@ public class Robot {
 	private int nbRechargement;
 	private CentreRechargement cR;
 	private int id;
+	private boolean EstenREchargement;
 	public Robot(int i,Battery batterie, ArrayList<Task> listeTache,
 			int nbTacheMax, int nbTacheAccompli, int nbRechargement,CentreRechargement cRech) {
 		this.batterie = batterie;
@@ -25,6 +26,7 @@ public class Robot {
 		this.listeTache = listeTache;
 		cR = cRech;
 		id=i;
+		EstenREchargement =false;
 	}
 
 	public Battery getBatterie() {
@@ -54,42 +56,60 @@ public class Robot {
 	public int getNbRechargement() {
 		return nbRechargement;
 	}
-	public void setNbRechargement(int nbRechargement) {
-		this.nbRechargement = nbRechargement;
+	public void countNbRechargement() {
+		this.nbRechargement++;
 	}
 
 	public void goRechargement()
 	{
-		this.cR.lancerRechargement();
+		cR.mettreDansFileAttente(this);
+		System.out.println("y");
+
 	}
 
 	public void run()
 	{
 		int i=0;
 		int costBatTask;
-		while(this.batterie.getNbBarre() > 0)
+		int k = 0;
+		//for(int c=0;c<2;c++)
+		while(this.batterie.isBattSuffisante())
 		{
-//			if(this.batterie.isBattSuffisante())
-//			{
-				this.listeTache.get(i).executTask();
-				costBatTask = this.listeTache.get(i).getCostBattery();
-				this.batterie.setNbBarre(this.batterie.getNbBarre() - costBatTask);
-				this.nbTacheAccompli++;
 
-//			}
-//			else
-//			{
-//				this.goRechargement();
-//			}
+			this.listeTache.get(i).executTask();
+			costBatTask = this.listeTache.get(i).getCostBattery();
+			this.batterie.setNbBarre(this.batterie.getNbBarre() - costBatTask);
+			this.nbTacheAccompli++;
+
+
+			if(!this.batterie.isBattSuffisante() && cR.isCrEnMarche())
+			{
+
+				this.goRechargement();
+								while(this.EstenREchargement)
+								{System.out.println("f");
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+								}
+			}
 			i++;
 			i=i%(this.listeTache.size());
 			System.out.println("hop");
+			k++;
 		}
+		System.out.println(k);
 	}
-public String toString()
-{
-	return "Robot : " + id + " - " + batterie + " - nbREchargement : " + nbRechargement + 
-			" nbTask Accomplies : " + nbTacheAccompli ;
-}
+	public String toString()
+	{
+		return "Robot : " + id + " - " + batterie + " - nbREchargement : " + nbRechargement + 
+				" nbTask Accomplies : " + nbTacheAccompli ;
+	}
 
+	public void setEstenREchargement(boolean b) {
+		EstenREchargement=b;	
+	}
 }
