@@ -25,14 +25,16 @@ public class Main {
 		lTaskAll.add(destr);
 
 		CentreRechargement cr = new CentreRechargement(5,3);
-		cr.start();
+		Thread c = new Thread(cr);
+		c.start();
 
-		ArrayList<Robot> lstR = new ArrayList<>();
+		ArrayList<Thread> lstR = new ArrayList<>();
 
 		Robot r1 = new Robot(1,new Battery(5, true), lTaskAll, 3, 0, 0, cr);
+		Thread robot = new Thread(r1);
 		//				Robot r2 = new Robot(2,new Battery(5, true), lTaskAll, 3, 0, 0, cr);
 
-		lstR.add(r1);
+		lstR.add(robot);
 		//				lstR.add(r2);
 
 		//Assignation de tache spéciale
@@ -56,7 +58,7 @@ public class Main {
 			}
 		}	
 		try {
-			cr.join();
+			c.join();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -2,7 +2,7 @@ package fr.p10.miage.robot.model;
 
 import java.util.ArrayList;
 
-public class Robot extends Thread {
+public class Robot implements Runnable {
 
 
 	private Battery batterie;

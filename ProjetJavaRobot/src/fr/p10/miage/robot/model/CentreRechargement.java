@@ -2,7 +2,7 @@ package fr.p10.miage.robot.model;
 
 import java.util.ArrayList;
 
-public class CentreRechargement  extends Thread{
+public class CentreRechargement  implements Runnable{
 	private ArrayList<Robot> fileAttente = new ArrayList<>();
 	private int max;
 	private int nbrechargementAfaire;//Nbr de rechargement qui sera effectué, avant de mettre fin au programme
