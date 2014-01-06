@@ -26,8 +26,6 @@ public abstract class Task implements ExecutTask {
 		}
 	}
 
-	
-
 	protected final void exchange (int i, int j) {
 		Comparable temp = table[i];
 		table[i] = table[j];
@@ -40,6 +38,7 @@ public abstract class Task implements ExecutTask {
 			content = content + " " + i + " : " + table1[i] + "\n";
 		return content;
 		}
+	
 	public int getCostBattery()
 	{
 		return costBattery;

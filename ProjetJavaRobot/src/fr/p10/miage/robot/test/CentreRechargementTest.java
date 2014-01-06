@@ -19,13 +19,5 @@ public class CentreRechargementTest {
 		cr.enleverDansFileAttente();	
 		//Test si r1 n est plus dans la lisgte d'attente c est a dire si la liste est vide 
 		assertTrue(cr.getFileAttente().size()==0);	
-
-
-	
-		
-		
-		
-
 	}
-
 }
