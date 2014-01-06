@@ -19,7 +19,7 @@ public class Main {
 		Comparable[] table = new Comparable[20];
 		for(int i=0;i<20;i++)
 		{
-			intRandom=r.nextInt();
+			intRandom=r.nextInt();//
 			table[i]=intRandom;
 		}
 		//Phase de création d'une liste de tache commune à tous les robots
