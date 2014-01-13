@@ -9,7 +9,7 @@ import fr.p10.miage.robot.model.Task;
 
 public class Robot implements Runnable {
 
-
+	//Assignation des spécificités d'un robot
 	private Battery batterie;
 	private ArrayList<Task> listeTache=new ArrayList<>();
 	private int nbTacheMax;
@@ -17,18 +17,18 @@ public class Robot implements Runnable {
 	private int nbRechargement;
 	private CentreRechargement cR;
 	private int id;
-	private boolean EstenREchargement, robotEnMarche;
+	private boolean EstenREchargement;
+	@SuppressWarnings("unchecked")
 	public Robot(int i,Battery batterie, ArrayList<Task> listeTache,
 			int nbTacheMax, int nbTacheAccompli, int nbRechargement,CentreRechargement cRech) {
 		this.batterie = batterie;
 		this.nbTacheMax = nbTacheMax;
 		this.nbTacheAccompli = nbTacheAccompli;
 		this.nbRechargement = nbRechargement;
-		this.listeTache = listeTache;
+		this.listeTache = (ArrayList<Task>) listeTache.clone();
 		cR = cRech;
 		id=i;
 		EstenREchargement =false;
-		robotEnMarche = true;
 	}
 
 	public Battery getBatterie() {
@@ -72,20 +72,31 @@ public class Robot implements Runnable {
 	{
 		int i=0;
 		int costBatTask;
-		int k = 0;
 		
 		while(true)
 		{
+			//Calcul du temps d'exécution d'une tâche
 			Date dstartDate = new Date();
+			
+			//Exécution d'une tâche
 			this.listeTache.get(i).executTask();
 			Date dEndDate = new Date();
 			long lexecTime = dEndDate.getTime() - dstartDate.getTime();
 			System.out.println("Temp exe millisecond: " + lexecTime);
 
+			//Calcul du coût de la batterie
 			costBatTask = this.listeTache.get(i).getCostBattery();
+			
+			//Mise à jour de sa batterie actuelle après exécution de la tâche
 			this.batterie.setNbBarre(this.batterie.getNbBarre() - costBatTask);
+			
+			//Mise à jour du nombre de tâches accomplies
 			this.nbTacheAccompli++;
+			
+			//Rechargement du robot après exécution d'une tâche
 			this.goRechargement();
+			
+			//Tant qu'il est en rechargement, il ne fait plus de tâches
 			while(this.EstenREchargement)
 			{
 				try {
@@ -95,25 +106,18 @@ public class Robot implements Runnable {
 					e.printStackTrace();
 				}
 			}
-			//			}
-			i++;
-			i=i%(this.listeTache.size());
-			k++;
+			i++; //On passe à la tâche suivante du même robot
+			i=i%(this.listeTache.size()); //Afin d'éviter de dépasser le nb de tâches. Il revient à 0 une fois ttes les tâches effectuées 
 		}
 	}
 	public String affInfoR()
 	{
-		return "Robot : " + id + " - " + batterie + " - nbREchargement : " + nbRechargement + 
+		return "Robot : " + id + " - " + batterie.affichNbBarre() + " - nbREchargement : " + nbRechargement + 
 				" nbTask Accomplies : " + nbTacheAccompli ;
 	}
 
 	public void setEstenREchargement(boolean b) {
 		EstenREchargement=b;	
-	}
-
-	public boolean isMarche() {
-		// TODO Auto-generated method stub
-		return robotEnMarche;
 	}
 
 	public int getId() {

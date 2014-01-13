@@ -9,7 +9,7 @@ public class CentreRechargementTest {
 
 	@Test
 	public void test() {
-		CentreRechargement cr = new CentreRechargement(5,3);
+		CentreRechargement cr = new CentreRechargement(3);
 		Robot r1 = new Robot(1,new Battery(5, true), null, 3, 0, 0, cr);
 
 		cr.mettreDansFileAttente(r1);

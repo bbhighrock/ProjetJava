@@ -8,35 +8,31 @@ import java.util.ArrayList;
 import fr.p10.miage.robot.model.Robot;
 
 public class CentreRechargement implements Runnable{
+	//Initialisation de la file d'Attente de robots
 	private ArrayList<Robot> fileAttente = new ArrayList<>();
-	private ArrayList<Robot> listeRobot = new ArrayList<>();//pr contenir tous les robots qui se seront rechargé, pr exporté les info
-
+	
+	//Liste de robots une fois qu'ils ont été rechargé pour la collection et l'export d'informations
+	private ArrayList<Robot> listeRobot = new ArrayList<>();
+	
+	//Le nombre de robots dans la file d'Attente
 	private int max;
-	private int nbrechargementAfaire;//Nbr de rechargement qui sera effectué, avant de mettre fin au programme
-	private boolean crEnMarche;
-	public CentreRechargement(int max,int nb){		
-		this.max = 3;
-		this.nbrechargementAfaire = nb;
-		crEnMarche =true;
+	
+	public CentreRechargement(int max){		
+		this.max = max;
 	}
+	
 	public ArrayList<Robot> getFileAttente() {
 		return fileAttente;
 	}
 	public void setFileAttente(ArrayList<Robot> fileAttente) {
 		this.fileAttente = fileAttente;
 	}
-	public int getNbrechargementAfaire() {
-		return nbrechargementAfaire;
-	}
 
-	public void setNbrechargementAfaire(int nbrechargementAfaire) {
-		this.nbrechargementAfaire = nbrechargementAfaire;
-	}
 	public void run()
 	{
 		while(true)
 		{
-			//Si liste est vide, on endort le centre 
+			//Tant que la file d'Attente est vide, on attend
 			while (fileAttente.isEmpty())
 			{
 				try {
@@ -46,54 +42,65 @@ public class CentreRechargement implements Runnable{
 					e.printStackTrace();
 				}
 			}
+			
+			//Si un robot est dans la file d'attente
 			if(fileAttente.size()>=1)
 			{
-				fileAttente.get(0).getBatterie().setNbBarre(5); 
+				//On recharge la batterie du robot
+				fileAttente.get(0).getBatterie().setNbBarre(5);
+				
+				//On incrémente son nombre de rechargement
 				fileAttente.get(0).countNbRechargement(); 
 
-				System.out.println("Robot :" + fileAttente.get(0).getId() + " - Nb rechargement :" + fileAttente.get(0).getNbRechargement()
-						+ " - Nb Tache accompli :" + fileAttente.get(0).getNbTacheAccompli());
+				//Affichage des informations du robot après rechargement
+				System.out.println(fileAttente.get(0).affInfoR());
 
+				//Collecter les infos d'un robot
 				this.collecterInfo(fileAttente.get(0));
+				
+				//Export des infos des robots après rechargement
 				this.exporterInfo();
+				
+				//On enlève le robot de la file d'attente de rechargement
 				this.enleverDansFileAttente();
 			}
 		}
 	}
 	
-	public boolean isCrEnMarche() {
-		return crEnMarche;
-	}
-	public void setCrEnMarche(boolean crEnMarche) {
-		this.crEnMarche = crEnMarche;
-	}
-	
 	public void collecterInfo(Robot r){
-		//SI le robot n'est pas encore dans cette liste, on le rajoute
-		if(!listeRobot.contains(fileAttente.get(0)))
+		//Si le robot n'est pas encore dans cette liste, on le rajoute
+		if(!listeRobot.contains(r))
 		{
-			listeRobot.add(fileAttente.get(0));
+			//Ajout du robot à la liste
+			listeRobot.add(r);
 		}
 	}
 
 	public void exporterInfo(){
-		File f = new File ("LogsRobots.txt");
+		//Création du fichier LogsRobots.txt
+		File frobot = new File ("LogsRobots.txt");
 		 
 		try
 		{
-		    FileWriter fw = new FileWriter (f);
+			//L'objet fw va nous permettre d'écrire dans le fichier f
+		    FileWriter fw = new FileWriter (frobot);
 		 
 		    fw.write("Export des informations collectées sur les Robots après chaque rechargement\r\n\r\n");
 		    
+		    //On parcourt la liste des robots rechargés
 		    for (int i=0;i<listeRobot.size();i++)
 		    {
+		    	//Récupération de l'ID
 		    	fw.write("Robot n° ");
 		        fw.write(String.valueOf(listeRobot.get(i).getId())+"\r\n");
+		        //Récupération de la liste des tâches du robot
 		        fw.write("Liste de tâches du robot : ");
 		        for(int j=0;j<listeRobot.get(i).getListeTache().size();j++)
 			        fw.write(String.valueOf(listeRobot.get(i).getListeTache().get(j).getName())+"/");
 		        fw.write("\r\n");
+		        //Récupération du nombre de tâches effectuées par le robot
 		        fw.write("Nombre de tâches effectuées : "+String.valueOf(listeRobot.get(i).getNbTacheAccompli())+"\r\n");
+		        //Récupération du niveau de la batterie du robot
 		        fw.write("Niveau de rechargement de la batterie : "+String.valueOf(listeRobot.get(i).getBatterie().getNbBarre()+"/5")+"\r\n");
 		        fw.write("Nombre de rechargements : "+String.valueOf(listeRobot.get(i).getNbRechargement())+"\r\n");
 		        fw.write("\r\n\r\n");
@@ -106,10 +113,11 @@ public class CentreRechargement implements Runnable{
 		}
 	}
 
-	//Un robot est dechargé et on le met dans la file
+	//Un robot est dechargé et on le met dans la file du centre de rechargement
 	public synchronized void mettreDansFileAttente(Robot robot){
+		//tant que la file d'Attente est pleine
 		while(this.fileAttente.size() >= this.max){
-			//Si le robot possède toujours de la batterie, il ne se met en attente et retrourne à sa tache
+			//Si le robot possède toujours de la batterie, il ne se met pas en attente et retourne à sa tâche
 			if(robot.getBatterie().isBattSuffisante())
 				return;
 			try {
@@ -119,7 +127,9 @@ public class CentreRechargement implements Runnable{
 				e.printStackTrace();
 			}
 		}
+		//Il y a de la place dans la file, on ajoute le robot
 		this.fileAttente.add(robot);
+		//On dit que le robot est en phase de rechargement
 		robot.setEstenREchargement(true);
 	}
 

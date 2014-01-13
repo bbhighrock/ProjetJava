@@ -9,27 +9,33 @@ public class Main {
 
 	public static void main(String[] args) {
 
+		//Création d'un tableau d'entiers non triés
 		Random r = new Random();
 		int intRandom;
 		Comparable[] table = new Comparable[20];
-		for(int i=0;i<20;i++)
+		for(int i=0; i<20; i++)
 		{
-			intRandom=r.nextInt();
-			table[i]=intRandom;
+			intRandom = r.nextInt();
+			table[i] = intRandom;
 		}
-		//Phase de création d'une liste de tache commune à tous les robots
+		//Phase de création d'une liste de taches communes à tous les robots
 		ArrayList<Task> lTaskAll = new ArrayList<>();
+		
 		Clean cl = new Clean("Clean", false, table);
 		Destroy destr= new Destroy("Destroy", false, table);
+		
 		lTaskAll.add(cl);
 		lTaskAll.add(destr);
-
-		CentreRechargement cr = new CentreRechargement(5,3);
+		
+		//Phase de création du centre de rechargement
+		CentreRechargement cr = new CentreRechargement(3);
 		Thread c = new Thread(cr);
 		c.start();
 
+		//Phase de création d'une liste de robots
 		ArrayList<Thread> lstR = new ArrayList<>();
 
+		//Phase de création des robots
 		Robot r1 = new Robot(1,new Battery(5, true), lTaskAll, 3, 0, 0, cr);
 		Thread robot = new Thread(r1);
 		Robot r2 = new Robot(2,new Battery(5, true), lTaskAll, 3, 0, 0, cr);
@@ -40,13 +46,15 @@ public class Main {
 		Thread robot4 = new Thread(r4);
 		Robot r5 = new Robot(5,new Battery(5, true), lTaskAll, 3, 0, 0, cr);
 		Thread robot5 = new Thread(r5);
+		
+		//Ajout des robots dans la liste de robots
 		lstR.add(robot);
 		lstR.add(robot2);
 		lstR.add(robot3);
 		lstR.add(robot4);
 		lstR.add(robot5);
 
-		//Assignation de tache spéciale
+		//Assignation des taches spéciales aux robots 1, 3 et 5
 		Repare rep = new Repare("Repare", true, table);
 		r1.getListeTache().add(rep);
 		Dig dig = new Dig("Creuser", true, table);
@@ -54,11 +62,13 @@ public class Main {
 		Build build = new Build("Construire", true, table);
 		r5.getListeTache().add(build);
 
+		//Démarrage de tous les threads robot
 		for(int i=0;i<lstR.size();i++)
 		{
 			lstR.get(i).start();
 		}		
 
+		//Attente de la fin d'execution des threads robot et du thread rechargement
 		for(int i=0;i<lstR.size();i++)
 		{
 			try 

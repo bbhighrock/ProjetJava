@@ -27,7 +27,7 @@ public class Battery {
 	}
 
 	public String affichNbBarre() {
-		return "Battery : " + nbBarre ;
+		return "Etat de la Batterie : " + nbBarre;
 	}
 
 
