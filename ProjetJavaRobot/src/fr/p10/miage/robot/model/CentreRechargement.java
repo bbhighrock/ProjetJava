@@ -109,7 +109,6 @@ public class CentreRechargement implements Runnable{
 	//Un robot est dechargé et on le met dans la file
 	public synchronized void mettreDansFileAttente(Robot robot){
 		while(this.fileAttente.size() >= this.max){
-			System.out.println("jj");
 			//Si le robot possède toujours de la batterie, il ne se met en attente et retrourne à sa tache
 			if(robot.getBatterie().isBattSuffisante())
 				return;

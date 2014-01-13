@@ -88,7 +88,6 @@ public class Robot implements Runnable {
 			this.goRechargement();
 			while(this.EstenREchargement)
 			{
-				System.out.println("f");
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
@@ -99,7 +98,6 @@ public class Robot implements Runnable {
 			//			}
 			i++;
 			i=i%(this.listeTache.size());
-			System.out.println("hop" + this.batterie);
 			k++;
 		}
 	}
