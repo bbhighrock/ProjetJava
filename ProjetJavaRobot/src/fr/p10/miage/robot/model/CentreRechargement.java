@@ -1,21 +1,23 @@
 package fr.p10.miage.robot.model;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import fr.p10.miage.robot.model.Robot;
 
-public class CentreRechargement  implements Runnable{
+public class CentreRechargement implements Runnable{
 	private ArrayList<Robot> fileAttente = new ArrayList<>();
 	private ArrayList<Robot> listeRobot = new ArrayList<>();
 
 	private int max;
 	private int nbrechargementAfaire;//Nbr de rechargement qui sera effectué, avant de mettre fin au programme
 	private boolean crEnMarche;
-	public CentreRechargement(int max,int nb){
+	public CentreRechargement(int max,int nb){		
 		this.max = 3;
 		this.nbrechargementAfaire = nb;
 		crEnMarche =true;
-
 	}
 	public ArrayList<Robot> getFileAttente() {
 		return fileAttente;
@@ -90,6 +92,8 @@ public class CentreRechargement  implements Runnable{
 //		System.out.println("fin cr");
 //		crEnMarche=false;
 	}
+	
+	
 
 
 	public boolean isCrEnMarche() {
@@ -98,12 +102,30 @@ public class CentreRechargement  implements Runnable{
 	public void setCrEnMarche(boolean crEnMarche) {
 		this.crEnMarche = crEnMarche;
 	}
+	
 	public void collecterInfo(){
-
+		
 	}
 
 	public void exporterInfo(){
-
+		File f = new File ("LogsRobots.txt");
+		 
+		try
+		{
+		    FileWriter fw = new FileWriter (f);
+		 
+		    for (double d : data)
+		    {
+		        fw.write (String.valueOf (d));
+		        fw.write ("\r\n");
+		    }
+		 
+		    fw.close();
+		}
+		catch (IOException exception)
+		{
+		    System.out.println ("Erreur lors de la lecture : " + exception.getMessage());
+		}
 	}
 
 	//Un robot est dechargé et on le met dans la file
