@@ -34,25 +34,11 @@ public class CentreRechargement implements Runnable{
 	}
 	public void run()
 	{
-		//		int c=0;
-		//		boolean roboEnMarche=true;
-		//		while (fileAttente.isEmpty())
-		//		{
-		//			
-		//			try {
-		//				Thread.sleep(1000);
-		//			} catch (InterruptedException e) {
-		//				// TODO Auto-generated catch block
-		//				e.printStackTrace();
-		//			}
-		//			System.out.println(listeRobot.size());
-		//		}
 		while(true)
 		{
 			//Si liste est vide, on endort le centre 
 			while (fileAttente.isEmpty())
 			{
-
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
@@ -60,39 +46,21 @@ public class CentreRechargement implements Runnable{
 					e.printStackTrace();
 				}
 			}
-			//System.out.println(c+"-");
 			if(fileAttente.size()>=1)
 			{
 				fileAttente.get(0).getBatterie().setNbBarre(5); 
 				fileAttente.get(0).countNbRechargement(); 
-				//if(fileAttente.size()>=1)
 
-				//if exist maj info sion on ajoute
-				//if(fileAttente.get(0)
 				System.out.println("Robot :" + fileAttente.get(0).getId() + " - Nb rechargement :" + fileAttente.get(0).getNbRechargement()
 						+ " - Nb Tache accompli :" + fileAttente.get(0).getNbTacheAccompli());
 
-
 				this.collecterInfo(fileAttente.get(0));
-				
+				this.exporterInfo();
 				this.enleverDansFileAttente();
-				//				c++;
-
 			}
-
-
 		}
-		//		System.out.println("toto");
-		//		//Liberation de ts les robot en file d'attentes
-		//		while(!(fileAttente.isEmpty()))
-		//			this.enleverDansFileAttente();
-		//		System.out.println("fin cr");
-		//		crEnMarche=false;
 	}
 	
-	
-
-
 	public boolean isCrEnMarche() {
 		return crEnMarche;
 	}
@@ -100,7 +68,7 @@ public class CentreRechargement implements Runnable{
 		this.crEnMarche = crEnMarche;
 	}
 	
-	public void collecterInfo(){
+	public void collecterInfo(Robot r){
 		//SI le robot n'est pas encore dans cette liste, on le rajoute
 		if(!listeRobot.contains(fileAttente.get(0)))
 		{
@@ -115,10 +83,16 @@ public class CentreRechargement implements Runnable{
 		{
 		    FileWriter fw = new FileWriter (f);
 		 
-		    for (double d : data)
+		    fw.write("Export des informations collectées sur les Robots après chaque rechargement\r\n\r\n");
+		    
+		    for (int i=0;i<listeRobot.size();i++)
 		    {
-		        fw.write (String.valueOf (d));
-		        fw.write ("\r\n");
+		    	fw.write("Robot n° ");
+		        fw.write(String.valueOf(listeRobot.get(i).getId())+"\r\n");
+		        fw.write("Nombre de tâches effectuées avant le rechargement : "+String.valueOf(listeRobot.get(i).getNbTacheAccompli())+"\r\n");
+		        fw.write("Niveau de rechargement de la batterie : "+String.valueOf(listeRobot.get(i).getBatterie().getNbBarre()+"/5")+"\r\n");
+		        fw.write("Nombre de rechargements : "+String.valueOf(listeRobot.get(i).getNbRechargement())+"\r\n");
+		        fw.write("\r\n\r\n");
 		    }
 		 
 		    fw.close();
@@ -131,11 +105,6 @@ public class CentreRechargement implements Runnable{
 
 	//Un robot est dechargé et on le met dans la file
 	public synchronized void mettreDansFileAttente(Robot robot){
-		//System.out.println("hh");
-
-
-		//System.out.println(this.fileAttente.size() + " - " + max);
-
 		while(this.fileAttente.size() >= this.max){
 			System.out.println("jj");
 			//Si le robot possède toujours de la batterie, il ne se met en attente et retrourne à sa tache
@@ -148,20 +117,8 @@ public class CentreRechargement implements Runnable{
 				e.printStackTrace();
 			}
 		}
-		
-	//	System.out.println(" size " + fileAttente.size());
 		this.fileAttente.add(robot);
-	//	System.out.println(" size " + fileAttente.size());
-
 		robot.setEstenREchargement(true);
-		//		curr ++;
-		//		try {
-		//			wait();
-		//		} catch (InterruptedException e) {
-		//			// TODO Auto-generated catch block
-		//			e.printStackTrace();
-		//		}
-
 	}
 
 	//Un robot est complétement rechargé et on libère une place dans la file
@@ -170,9 +127,8 @@ public class CentreRechargement implements Runnable{
 		fileAttente.get(0).setEstenREchargement(false);
 		fileAttente.remove(fileAttente.get(0));// supprime l element i+1 déplacé
 		notifyAll();
-
-
 	}
+	
 	public void setlstRobot(ArrayList<Robot> lstR) {
 		listeRobot = lstR;
 		

@@ -15,7 +15,7 @@ public class Battery {
 		if(nbBarre>0){
 			this.nbBarre = nbBarre;
 		}else{
-			//execption
+			//exception
 			battSuffisante=false;
 		}
 	}
@@ -26,8 +26,7 @@ public class Battery {
 		this.battSuffisante = battSuffisante;
 	}
 
-	@Override
-	public String toString() {
+	public String affichNbBarre() {
 		return "Battery : " + nbBarre ;
 	}
 

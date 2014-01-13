@@ -1,0 +1,14 @@
+Export des informations collectées sur les Robots après chaque rechargement
+
+Robot n° 1
+Nombre de tâches effectuées avant le rechargement : 6
+Niveau de rechargement de la batterie : 5/5
+Nombre de rechargements : 6
+
+
+Robot n° 2
+Nombre de tâches effectuées avant le rechargement : 5
+Niveau de rechargement de la batterie : 5/5
+Nombre de rechargements : 5
+
+
