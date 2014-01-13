@@ -89,12 +89,15 @@ public class CentreRechargement implements Runnable{
 		    {
 		    	fw.write("Robot n° ");
 		        fw.write(String.valueOf(listeRobot.get(i).getId())+"\r\n");
-		        fw.write("Nombre de tâches effectuées avant le rechargement : "+String.valueOf(listeRobot.get(i).getNbTacheAccompli())+"\r\n");
+		        fw.write("Liste de tâches du robot : ");
+		        for(int j=0;j<listeRobot.get(i).getListeTache().size();j++)
+			        fw.write(String.valueOf(listeRobot.get(i).getListeTache().get(j).getName())+"/");
+		        fw.write("\r\n");
+		        fw.write("Nombre de tâches effectuées : "+String.valueOf(listeRobot.get(i).getNbTacheAccompli())+"\r\n");
 		        fw.write("Niveau de rechargement de la batterie : "+String.valueOf(listeRobot.get(i).getBatterie().getNbBarre()+"/5")+"\r\n");
 		        fw.write("Nombre de rechargements : "+String.valueOf(listeRobot.get(i).getNbRechargement())+"\r\n");
 		        fw.write("\r\n\r\n");
 		    }
-		 
 		    fw.close();
 		}
 		catch (IOException exception)

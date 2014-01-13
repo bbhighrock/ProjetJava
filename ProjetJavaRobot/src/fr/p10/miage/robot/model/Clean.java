@@ -22,4 +22,8 @@ public class Clean extends Task {
 			j = j-1;
 		}
 	}
+	
+	public String getName(){
+		return name;
+	}
 }

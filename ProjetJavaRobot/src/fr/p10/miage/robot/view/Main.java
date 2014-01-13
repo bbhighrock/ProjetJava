@@ -8,6 +8,7 @@ import fr.p10.miage.robot.model.*;
 public class Main {
 
 	public static void main(String[] args) {
+
 		Random r = new Random();
 		int intRandom;
 		Comparable[] table = new Comparable[20];
@@ -16,10 +17,9 @@ public class Main {
 			intRandom=r.nextInt();
 			table[i]=intRandom;
 		}
-		
 		//Phase de création d'une liste de tache commune à tous les robots
 		ArrayList<Task> lTaskAll = new ArrayList<>();
-		Clean cl = new Clean( "Clean", false, table);
+		Clean cl = new Clean("Clean", false, table);
 		Destroy destr= new Destroy("Destroy", false, table);
 		lTaskAll.add(cl);
 		lTaskAll.add(destr);
@@ -28,8 +28,6 @@ public class Main {
 		Thread c = new Thread(cr);
 		c.start();
 
-		
-		// Phase de création des robots
 		ArrayList<Thread> lstR = new ArrayList<>();
 
 		Robot r1 = new Robot(1,new Battery(5, true), lTaskAll, 3, 0, 0, cr);
@@ -52,11 +50,10 @@ public class Main {
 		Repare rep = new Repare("Repare", true, table);
 		r1.getListeTache().add(rep);
 		Dig dig = new Dig("Creuser", true, table);
-		r3.getListeTache().add(rep);
+		r3.getListeTache().add(dig);
 		Build build = new Build("Construire", true, table);
-		r5.getListeTache().add(rep);
-		
-		
+		r5.getListeTache().add(build);
+
 		for(int i=0;i<lstR.size();i++)
 		{
 			lstR.get(i).start();
@@ -79,9 +76,11 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-
-
 	}
-
 }
+
+
+// Problèmes non gérés pour le moment
+	//Test du fichier
+	//Si un robot a une batterie plus vide qu'un autre, il n'est pas forcément prioritaire sur le rechargement
+	//La moyenne des temps d'execution de chaque tâche par les robots n'est pas exportée dans le fichier

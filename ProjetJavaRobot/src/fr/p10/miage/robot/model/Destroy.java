@@ -26,5 +26,8 @@ public class Destroy extends Task{
 			}
 		return indice;
 	}
-
+	
+	public String getName(){
+		return name;
+	}
 }

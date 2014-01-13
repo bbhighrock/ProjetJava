@@ -73,7 +73,7 @@ public class Robot implements Runnable {
 		int i=0;
 		int costBatTask;
 		int k = 0;
-		//for(int c=0;c<2;c++)
+		
 		while(true)
 		{
 			Date dstartDate = new Date();
@@ -85,10 +85,6 @@ public class Robot implements Runnable {
 			costBatTask = this.listeTache.get(i).getCostBattery();
 			this.batterie.setNbBarre(this.batterie.getNbBarre() - costBatTask);
 			this.nbTacheAccompli++;
-
-			//			if(this.batterie.isBattSuffisante() && cR.isCrEnMarche())
-			//			{
-
 			this.goRechargement();
 			while(this.EstenREchargement)
 			{
@@ -106,11 +102,6 @@ public class Robot implements Runnable {
 			System.out.println("hop" + this.batterie);
 			k++;
 		}
-		//		System.out.println("fin robot " +k);
-		//		robotEnMarche = false;
-		//		System.out.println("--Resultat run des robots");
-		//		System.out.println(affInfoR());
-
 	}
 	public String affInfoR()
 	{

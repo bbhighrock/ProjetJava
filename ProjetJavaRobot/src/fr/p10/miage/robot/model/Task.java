@@ -2,7 +2,7 @@ package fr.p10.miage.robot.model;
 
 public abstract class Task implements ExecutTask {
 	private int costBattery;
-	private String name;
+	protected String name;
 	private boolean isUnique;
 	
 	protected Comparable [] table;
@@ -42,5 +42,9 @@ public abstract class Task implements ExecutTask {
 	public int getCostBattery()
 	{
 		return costBattery;
+	}
+	
+	public String getName(){
+		return name;
 	}
 }

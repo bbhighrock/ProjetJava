@@ -25,4 +25,8 @@ public class Build extends Task{
 					exchangeDone = true;
 				}
 		}
+		
+		public String getName(){
+			return name;
+		}
 }

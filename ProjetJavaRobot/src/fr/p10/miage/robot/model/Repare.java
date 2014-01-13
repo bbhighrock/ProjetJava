@@ -32,4 +32,8 @@ public class Repare extends Task {
 				exchange(j-1, j);
 		}
 	}
+	
+	public String getName(){
+		return name;
+	}
 }

@@ -52,4 +52,8 @@ public class Dig extends Task{
 	protected void executTask( ) {
 		executTask(0,table.length-1);
 	}
+	
+	public String getName(){
+		return name;
+	}
 }
