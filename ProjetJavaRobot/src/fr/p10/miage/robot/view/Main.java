@@ -12,8 +12,8 @@ public class Main {
 		//Création d'un tableau d'entiers non triés
 		Random r = new Random();
 		int intRandom;
-		Comparable[] table = new Comparable[20];
-		for(int i=0; i<20; i++)
+		Comparable[] table = new Comparable[2000];
+		for(int i=0; i<2000; i++)
 		{
 			intRandom = r.nextInt();
 			table[i] = intRandom;
@@ -91,6 +91,8 @@ public class Main {
 
 
 // Problèmes non gérés pour le moment
-	//Test du fichier
+	//Test d'écriture dans le fichier
+	//Générer une exception dans batterie
+	//Enlever le sleep dans CentreRechargement
 	//Si un robot a une batterie plus vide qu'un autre, il n'est pas forcément prioritaire sur le rechargement
 	//La moyenne des temps d'execution de chaque tâche par les robots n'est pas exportée dans le fichier

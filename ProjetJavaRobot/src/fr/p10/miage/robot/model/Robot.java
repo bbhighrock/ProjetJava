@@ -17,7 +17,6 @@ public class Robot implements Runnable {
 	private int nbRechargement;
 	private CentreRechargement cR;
 	private int id;
-	private boolean EstenREchargement;
 	@SuppressWarnings("unchecked")
 	public Robot(int i,Battery batterie, ArrayList<Task> listeTache,
 			int nbTacheMax, int nbTacheAccompli, int nbRechargement,CentreRechargement cRech) {
@@ -28,7 +27,6 @@ public class Robot implements Runnable {
 		this.listeTache = (ArrayList<Task>) listeTache.clone();
 		cR = cRech;
 		id=i;
-		EstenREchargement =false;
 	}
 
 	public Battery getBatterie() {
@@ -95,17 +93,7 @@ public class Robot implements Runnable {
 			
 			//Rechargement du robot après exécution d'une tâche
 			this.goRechargement();
-			
-			//Tant qu'il est en rechargement, il ne fait plus de tâches
-			while(this.EstenREchargement)
-			{
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+		
 			i++; //On passe à la tâche suivante du même robot
 			i=i%(this.listeTache.size()); //Afin d'éviter de dépasser le nb de tâches. Il revient à 0 une fois ttes les tâches effectuées 
 		}
@@ -114,10 +102,6 @@ public class Robot implements Runnable {
 	{
 		return "Robot : " + id + " - " + batterie.affichNbBarre() + " - nbREchargement : " + nbRechargement + 
 				" nbTask Accomplies : " + nbTacheAccompli ;
-	}
-
-	public void setEstenREchargement(boolean b) {
-		EstenREchargement=b;	
 	}
 
 	public int getId() {

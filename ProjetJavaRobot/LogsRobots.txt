@@ -1,37 +1,37 @@
 Export des informations collectées sur les Robots après chaque rechargement
 
-Robot n° 5
-Liste de tâches du robot : Clean/Destroy/Construire/
-Nombre de tâches effectuées : 11
-Niveau de rechargement de la batterie : 5/5
-Nombre de rechargements : 8
-
-
 Robot n° 1
 Liste de tâches du robot : Clean/Destroy/Repare/
-Nombre de tâches effectuées : 7
-Niveau de rechargement de la batterie : 5/5
-Nombre de rechargements : 7
+Nombre de tâches effectuées : 337
+Niveau de rechargement de la batterie : 5
+Nombre de rechargements : 333
 
 
 Robot n° 3
 Liste de tâches du robot : Clean/Destroy/Creuser/
-Nombre de tâches effectuées : 11
-Niveau de rechargement de la batterie : 5/5
-Nombre de rechargements : 7
+Nombre de tâches effectuées : 496
+Niveau de rechargement de la batterie : 5
+Nombre de rechargements : 491
 
 
 Robot n° 2
 Liste de tâches du robot : Clean/Destroy/
-Nombre de tâches effectuées : 11
-Niveau de rechargement de la batterie : 5/5
-Nombre de rechargements : 7
+Nombre de tâches effectuées : 413
+Niveau de rechargement de la batterie : 5
+Nombre de rechargements : 409
 
 
 Robot n° 4
 Liste de tâches du robot : Clean/Destroy/
-Nombre de tâches effectuées : 11
-Niveau de rechargement de la batterie : 5/5
-Nombre de rechargements : 7
+Nombre de tâches effectuées : 443
+Niveau de rechargement de la batterie : 5
+Nombre de rechargements : 439
+
+
+Robot n° 5
+Liste de tâches du robot : Clean/Destroy/Construire/
+Nombre de tâches effectuées : 411
+Niveau de rechargement de la batterie : 5
+Nombre de rechargements : 407
 
 
