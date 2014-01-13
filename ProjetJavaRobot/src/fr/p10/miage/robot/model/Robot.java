@@ -1,6 +1,7 @@
 package fr.p10.miage.robot.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import fr.p10.miage.robot.model.Battery;
 import fr.p10.miage.robot.model.CentreRechargement;
@@ -62,9 +63,8 @@ public class Robot implements Runnable {
 	}
 
 	public void goRechargement()
-	{System.out.println("y");
-	cR.mettreDansFileAttente(this);
-	System.out.println("y");
+	{
+		cR.mettreDansFileAttente(this);
 
 	}
 
@@ -74,37 +74,45 @@ public class Robot implements Runnable {
 		int costBatTask;
 		int k = 0;
 		//for(int c=0;c<2;c++)
-		while(this.batterie.isBattSuffisante())
+		while(true)
 		{
-
+			Date dstartDate = new Date();
 			this.listeTache.get(i).executTask();
+			Date dEndDate = new Date();
+			long lexecTime = dEndDate.getTime() - dstartDate.getTime();
+			System.out.println("Temp exe millisecond: " + lexecTime);
+
 			costBatTask = this.listeTache.get(i).getCostBattery();
 			this.batterie.setNbBarre(this.batterie.getNbBarre() - costBatTask);
 			this.nbTacheAccompli++;
 
-			if(this.batterie.isBattSuffisante() && cR.isCrEnMarche())
-			{
+			//			if(this.batterie.isBattSuffisante() && cR.isCrEnMarche())
+			//			{
 
-				this.goRechargement();
-				while(this.EstenREchargement)
-				{System.out.println("f");
+			this.goRechargement();
+			while(this.EstenREchargement)
+			{
+				System.out.println("f");
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				}
 			}
+			//			}
 			i++;
 			i=i%(this.listeTache.size());
 			System.out.println("hop" + this.batterie);
 			k++;
 		}
-		System.out.println("fin robot " +k);
-		robotEnMarche = false;
+		//		System.out.println("fin robot " +k);
+		//		robotEnMarche = false;
+		//		System.out.println("--Resultat run des robots");
+		//		System.out.println(affInfoR());
+
 	}
-	public String toString()
+	public String affInfoR()
 	{
 		return "Robot : " + id + " - " + batterie + " - nbREchargement : " + nbRechargement + 
 				" nbTask Accomplies : " + nbTacheAccompli ;
@@ -117,5 +125,10 @@ public class Robot implements Runnable {
 	public boolean isMarche() {
 		// TODO Auto-generated method stub
 		return robotEnMarche;
+	}
+
+	public int getId() {
+		// TODO Auto-generated method stub
+		return id;
 	}
 }

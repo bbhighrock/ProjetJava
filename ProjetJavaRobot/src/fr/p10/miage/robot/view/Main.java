@@ -32,10 +32,10 @@ public class Main {
 
 		Robot r1 = new Robot(1,new Battery(5, true), lTaskAll, 3, 0, 0, cr);
 		Thread robot = new Thread(r1);
-		//				Robot r2 = new Robot(2,new Battery(5, true), lTaskAll, 3, 0, 0, cr);
-
+		Robot r2 = new Robot(2,new Battery(5, true), lTaskAll, 3, 0, 0, cr);
+		Thread robot2 = new Thread(r2);
 		lstR.add(robot);
-		//				lstR.add(r2);
+		lstR.add(robot2);
 
 		//Assignation de tache spéciale
 		Repare rep = new Repare("Repare", true, table);
@@ -63,12 +63,7 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("--Resultat run des robots");
 
-		for(int i=0;i<lstR.size();i++)
-		{
-			System.out.println(lstR.get(i));
-		}	
 
 
 	}

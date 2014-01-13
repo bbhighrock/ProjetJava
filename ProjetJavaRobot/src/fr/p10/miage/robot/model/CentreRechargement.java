@@ -12,7 +12,7 @@ public class CentreRechargement  implements Runnable{
 	private int nbrechargementAfaire;//Nbr de rechargement qui sera effectué, avant de mettre fin au programme
 	private boolean crEnMarche;
 	public CentreRechargement(int max,int nb){
-		this.max = max;
+		this.max = 3;
 		this.nbrechargementAfaire = nb;
 		crEnMarche =true;
 
@@ -34,7 +34,7 @@ public class CentreRechargement  implements Runnable{
 	{
 		int c=0;
 		boolean roboEnMarche=true;
-		while (listeRobot.isEmpty())
+		while (fileAttente.isEmpty())
 		{
 			
 			try {
@@ -43,8 +43,9 @@ public class CentreRechargement  implements Runnable{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			System.out.println(listeRobot.size());
 		}
-		while(c<3 && roboEnMarche)
+		while(true)
 		{
 			//Si liste est vide, on endort le centre 
 			while (fileAttente.isEmpty()&& roboEnMarche)
@@ -69,6 +70,12 @@ public class CentreRechargement  implements Runnable{
 				fileAttente.get(0).getBatterie().setNbBarre(5); 
 				fileAttente.get(0).countNbRechargement(); 
 				//if(fileAttente.size()>=1)
+				
+				//if exist maj info sion on ajoute
+				//if(fileAttente.get(0)
+				System.out.println("Robot :" + fileAttente.get(0).getId() + " - Nb rechargement :" + fileAttente.get(0).getNbRechargement()
+						+ " - Nb Tache accompli :" + fileAttente.get(0).getNbTacheAccompli());
+				
 				this.enleverDansFileAttente();
 				c++;
 
@@ -76,12 +83,12 @@ public class CentreRechargement  implements Runnable{
 
 
 		}
-		System.out.println("toto");
-		//Liberation de ts les robot en file d'attentes
-		while(!(fileAttente.isEmpty()))
-			this.enleverDansFileAttente();
-		System.out.println("fin cr");
-		crEnMarche=false;
+//		System.out.println("toto");
+//		//Liberation de ts les robot en file d'attentes
+//		while(!(fileAttente.isEmpty()))
+//			this.enleverDansFileAttente();
+//		System.out.println("fin cr");
+//		crEnMarche=false;
 	}
 
 
@@ -101,13 +108,16 @@ public class CentreRechargement  implements Runnable{
 
 	//Un robot est dechargé et on le met dans la file
 	public synchronized void mettreDansFileAttente(Robot robot){
-		System.out.println("hh");
+		//System.out.println("hh");
 
 
 		//System.out.println(this.fileAttente.size() + " - " + max);
 
 		while(this.fileAttente.size() >= this.max){
 			System.out.println("jj");
+			//Si le robot possède toujours de la batterie, il ne se met en attente et retrourne à sa tache
+			if(robot.getBatterie().isBattSuffisante())
+				return;
 			try {
 				wait();
 			} catch (InterruptedException e) {
@@ -115,9 +125,10 @@ public class CentreRechargement  implements Runnable{
 				e.printStackTrace();
 			}
 		}
-		System.out.println(" size " + fileAttente.size());
+		
+	//	System.out.println(" size " + fileAttente.size());
 		this.fileAttente.add(robot);
-		System.out.println(" size " + fileAttente.size());
+	//	System.out.println(" size " + fileAttente.size());
 
 		robot.setEstenREchargement(true);
 		//		curr ++;
