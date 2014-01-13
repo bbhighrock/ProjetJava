@@ -9,7 +9,7 @@ import fr.p10.miage.robot.model.Robot;
 
 public class CentreRechargement implements Runnable{
 	private ArrayList<Robot> fileAttente = new ArrayList<>();
-	private ArrayList<Robot> listeRobot = new ArrayList<>();
+	private ArrayList<Robot> listeRobot = new ArrayList<>();//pr contenir tous les robots qui se seront rechargé, pr exporté les info
 
 	private int max;
 	private int nbrechargementAfaire;//Nbr de rechargement qui sera effectué, avant de mettre fin au programme
@@ -34,29 +34,25 @@ public class CentreRechargement implements Runnable{
 	}
 	public void run()
 	{
-		int c=0;
-		boolean roboEnMarche=true;
-		while (fileAttente.isEmpty())
-		{
-			
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println(listeRobot.size());
-		}
+		//		int c=0;
+		//		boolean roboEnMarche=true;
+		//		while (fileAttente.isEmpty())
+		//		{
+		//			
+		//			try {
+		//				Thread.sleep(1000);
+		//			} catch (InterruptedException e) {
+		//				// TODO Auto-generated catch block
+		//				e.printStackTrace();
+		//			}
+		//			System.out.println(listeRobot.size());
+		//		}
 		while(true)
 		{
 			//Si liste est vide, on endort le centre 
-			while (fileAttente.isEmpty()&& roboEnMarche)
+			while (fileAttente.isEmpty())
 			{
-				for(int k=0;k<listeRobot.size();k++)
-				{
-					roboEnMarche = roboEnMarche && listeRobot.get(k).isMarche();
-					System.out.println("robot"+roboEnMarche);
-				}
+
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
@@ -67,30 +63,31 @@ public class CentreRechargement implements Runnable{
 			//System.out.println(c+"-");
 			if(fileAttente.size()>=1)
 			{
-				System.out.println("55");
-
 				fileAttente.get(0).getBatterie().setNbBarre(5); 
 				fileAttente.get(0).countNbRechargement(); 
 				//if(fileAttente.size()>=1)
-				
+
 				//if exist maj info sion on ajoute
 				//if(fileAttente.get(0)
 				System.out.println("Robot :" + fileAttente.get(0).getId() + " - Nb rechargement :" + fileAttente.get(0).getNbRechargement()
 						+ " - Nb Tache accompli :" + fileAttente.get(0).getNbTacheAccompli());
+
+
+				this.collecterInfo(fileAttente.get(0));
 				
 				this.enleverDansFileAttente();
-				c++;
+				//				c++;
 
 			}
 
 
 		}
-//		System.out.println("toto");
-//		//Liberation de ts les robot en file d'attentes
-//		while(!(fileAttente.isEmpty()))
-//			this.enleverDansFileAttente();
-//		System.out.println("fin cr");
-//		crEnMarche=false;
+		//		System.out.println("toto");
+		//		//Liberation de ts les robot en file d'attentes
+		//		while(!(fileAttente.isEmpty()))
+		//			this.enleverDansFileAttente();
+		//		System.out.println("fin cr");
+		//		crEnMarche=false;
 	}
 	
 	
@@ -104,7 +101,11 @@ public class CentreRechargement implements Runnable{
 	}
 	
 	public void collecterInfo(){
-		
+		//SI le robot n'est pas encore dans cette liste, on le rajoute
+		if(!listeRobot.contains(fileAttente.get(0)))
+		{
+			listeRobot.add(fileAttente.get(0));
+		}
 	}
 
 	public void exporterInfo(){
