@@ -102,9 +102,11 @@ public class CentreRechargement implements Runnable{
 		        fw.write("Nombre de tâches effectuées : "+String.valueOf(listeRobot.get(i).getNbTacheAccompli())+"\r\n");
 		        //Récupération du niveau de la batterie du robot
 		        fw.write("Niveau de rechargement de la batterie : "+String.valueOf(listeRobot.get(i).getBatterie().getNbBarre()+"/5")+"\r\n");
+		        //Récupération du nombre de rechargements effectués par le robot
 		        fw.write("Nombre de rechargements : "+String.valueOf(listeRobot.get(i).getNbRechargement())+"\r\n");
 		        fw.write("\r\n\r\n");
 		    }
+		    //Fermeture du fichier
 		    fw.close();
 		}
 		catch (IOException exception)
@@ -135,14 +137,11 @@ public class CentreRechargement implements Runnable{
 
 	//Un robot est complétement rechargé et on libère une place dans la file
 	public synchronized void enleverDansFileAttente(){
-
+		//Le robot n'est plus en phase de rechargement
 		fileAttente.get(0).setEstenREchargement(false);
-		fileAttente.remove(fileAttente.get(0));// supprime l element i+1 déplacé
+		//On le supprime de la liste et le deuxième dans la file devient le premier à recharger si il existe
+		fileAttente.remove(fileAttente.get(0));
+		//On notifie les threads en attente
 		notifyAll();
-	}
-	
-	public void setlstRobot(ArrayList<Robot> lstR) {
-		listeRobot = lstR;
-		
 	}
 }
