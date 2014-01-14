@@ -92,3 +92,5 @@ public class Main {
 // Problèmes non gérés pour le moment
 	//Si un robot a une batterie plus vide qu'un autre, il n'est pas forcément prioritaire sur le rechargement
 	//La moyenne des temps d'execution de chaque tâche par les robots n'est pas exportée dans le fichier
+//Mathieu : Batterie, Centre rechargement sauf fichier, 3 derniers tests, main
+//Baptiste : Fichier, Robot, "Tris", 3 premiers tests, main
