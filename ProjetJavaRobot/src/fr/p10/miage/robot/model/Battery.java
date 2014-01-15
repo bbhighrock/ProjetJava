@@ -18,6 +18,7 @@ public class Battery {
 	public void setNbBarre(int nbBarre) {
 		if(nbBarre>0){
 			this.nbBarre = nbBarre;
+			battSuffisante = true;
 		}else if(nbBarre == 0){
 			//exception
 			this.nbBarre = 0;
